@@ -22,8 +22,3 @@ Technologies used :
 + ZNC
 
 Bots manage all the IRC activities.
-
-Bots are :
-
-+ Assitant
-+ Assignment
