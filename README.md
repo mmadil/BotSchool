@@ -6,10 +6,10 @@ An Initiative !
 Learn to code from the best documents all placed in a single
 handbook.
 
-**This handbook will soon be published by the best authors worldwide !**
+**This handbook will soon be published.**
 
 
-Handbook helps you learn these things for now :
+Handbook helps you learn these things in near future :
 
 + Simple IRC commands
 + Python
