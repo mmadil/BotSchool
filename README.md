@@ -13,14 +13,25 @@ Handbook helps you learn these things in near future :
 + Simple IRC commands
 + Python
 
-Technologies used :
+#### Technologies used :
 
-+ Raspberry Pi (as server [Development])
-+ IRC (using UnrealIRCd)
++ Raspberry Pi (as server)
++ IRCd (using UnrealIRCd)
 + Anope Services
+
+#### Might add these later :
+
 + ZNC (Bouncer)
 
-Bots manage all the IRC activities with the help of channel
-operators and IRC operators.
 
+#### Bots
+----------------------------
+
+  Bots manage most of the IRC activities themselves.
+Different types of bots help us achieve the desired results.
+
+Bots here are of the follwing types :
+
++ Helper  - Manages the channel operations and some commands.
++ Teacher - Reads the user documents provided in the handbook.
 

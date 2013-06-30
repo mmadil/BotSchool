@@ -58,7 +58,8 @@ class BotBehavior():
                 try:
                     timestamp = int(time.time())
                     data = self.irc.recv(2048)
-                    print data
+                    if settings.DEBUG:
+                        print data
 
                     if data.find('PING') != -1:
                         self.irc.send('PONG ' + data.split() [1] + '\r\n')
