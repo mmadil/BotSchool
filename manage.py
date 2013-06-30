@@ -23,7 +23,7 @@ class Initializer():
             return 'loading..'
 
         if '--list' in self.arg:
-            return botlist.getlistofbots()
+            return botlist.getlist()
 
     def loadbot(self):
         pass

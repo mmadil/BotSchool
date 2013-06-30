@@ -3,7 +3,7 @@
 
 from settings import bots
 
-def getlistofbots():
+def getlist():
     names = ''
 
     if len(bots) == 1:
