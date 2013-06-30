@@ -38,7 +38,7 @@ class Initializer():
         print '\nLoading bot', bot
         start = BotBehavior(bot)
         print start
-        start.connect()
+        start.main()
         return ''
 
 
