@@ -1,3 +1,5 @@
+#!/usr/bin/python -tt
+
 from bots import botlist
 from settings import bots
 
