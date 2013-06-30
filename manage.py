@@ -2,6 +2,7 @@
 
 from bots import botlist
 from settings import bots
+from bots.core import BotBehavior
 
 import sys
 
@@ -20,10 +21,9 @@ class Initializer():
             bot = raw_input("Choose any botname : ")
 
             if bot in bots:
-                self.runbot(bot)
+                return self.runbot(bot)
             else:
-                print "It isn't"
-            return ''
+                return "Please choose an appropriate bot !"
 
         if 'list' in self.arg:
             return botlist.getlist()
@@ -36,6 +36,8 @@ class Initializer():
 
     def runbot(self, bot):
         print 'Loading bot', bot
+        start = BotBehavior(bot)
+        print start
         return ''
 
 
