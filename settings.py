@@ -1,13 +1,7 @@
-# IRC server settings
+# Main IRC server settings
 SERVER = '127.0.0.1'
-PORT = '6667'
-
-# Initializing other IRC settings
-NICK = ''
-IDENT = ''
-CHANNEL = ''
-REALNAME = ''
+PORT = 6667
 
 # Register every bot here.
-bots = ['helperbot','irchelperbot']
+bots = ['helperbot','teacherbot']
 

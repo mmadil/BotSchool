@@ -35,9 +35,10 @@ class Initializer():
             """
 
     def runbot(self, bot):
-        print 'Loading bot', bot
+        print '\nLoading bot', bot
         start = BotBehavior(bot)
         print start
+        start.connect()
         return ''
 
 
