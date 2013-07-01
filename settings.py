@@ -17,5 +17,14 @@ bots = {
             'IRC Helper Bot', # Real name of this bot
             'hostname',       # Hostname
             ],
+        'teacherbot': [
+            'Teacher',         # Bot Type
+            'TeacherBot',      # Nick
+            'teacherbot',      # Ident
+            'password',       # Password
+            '#Tutorials',          # Channel alloted to this bot
+            'IRC Teacher Bot', # Real name of this bot
+            'hostname',       # Hostname
+            ],
         }
 

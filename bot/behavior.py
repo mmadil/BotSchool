@@ -37,6 +37,9 @@ def ai(data, bot, irc):
     if data.find('+iwR') != -1:
         irc.send('PRIVMSG NickServ IDENTIFY ' + str(nick) + ' ' + str(password) + '\r\n')
 
+    if data.find('KICK') != -1:
+        irc.send('JOIN ' + channel + '\r\n')
+
     if bot_type == 'Helper':
         regexed_list = []
 
@@ -48,3 +51,4 @@ def ai(data, bot, irc):
 
     if bot_type == 'Teacher':
         pass
+

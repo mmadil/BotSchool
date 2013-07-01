@@ -19,7 +19,7 @@ def get_bot_details(bot):
         bot_config = settings.bots.values()[settings.bots.keys().index(bot)]
         return bot_config
 
-# Main Class
+# Main Bot Class
 
 class Bot():
     def __init__(self, bot):
