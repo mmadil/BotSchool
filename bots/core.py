@@ -17,8 +17,28 @@ def get_bot_details(bot):
         bot_config = settings.bots.values()[settings.bots.keys().index(bot)]
         return bot_config
 
+def get_modulest(bot):
+    pass
 
 # Classes
+
+class BotType():
+    def __init__(self):
+        pass
+
+    def __str__(self):
+        pass
+
+
+
+class BotModules():
+    def __init__(self):
+        pass
+
+    def __str__(self):
+        pass
+
+
 
 class BotBehavior():
     def __init__(self, bot):
@@ -42,6 +62,14 @@ class BotBehavior():
     def main(self):
         self.run()
 
+    def bot_ai(self, data):
+        pass
+
+    def regexify_data(self, data):
+        regex = '^(:(\S+) )?(\S+)( (?!:)(.+?))?( :(.+))?$'
+        matchObj = re.match(regex, data, re.M|re.I)
+        if matchObj:
+            return matchObj.group(), matchObj(1), matchObj(2), matchObj(3), matchObj(4), matchObj(5), matchObj(6)
 
     def run(self):
         while running:
@@ -69,6 +97,11 @@ class BotBehavior():
 
                     if data.find('+iwR') != -1:
                         self.irc.send('PRIVMSG NickServ IDENTIFY '+ self.nick + ' ' + self.password + '\r\n')
+
+                    if data.find('!tutor') != -1:
+                        self.regexify(data)
+                        self.irc.send('PRIVMSG ' + self.to + ' Its working !')
+
 
                 except Exception:
                    pass
