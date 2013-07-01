@@ -1,7 +1,7 @@
 #!/usr/bin/python -tt
 
 from settings import bots
-from bots.core import Bot
+from bot.core import Bot
 
 import sys
 

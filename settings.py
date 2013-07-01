@@ -3,7 +3,7 @@ SERVER = '127.0.0.1'
 PORT = 6667
 
 # Other settings
-DEBUG = False
+DEBUG = True
 
 # Register every bot here.
 
