@@ -12,13 +12,26 @@ import time
 
 running = True
 
+regex = '^(:(\S+) )?(\S+)( (?!:)(.+?))?( :(.+))?$'
+
 def get_bot_details(bot):
     if bot in settings.bots.keys():
         bot_config = settings.bots.values()[settings.bots.keys().index(bot)]
         return bot_config
 
-def get_modulest(bot):
+def get_modules(bot):
     pass
+
+def regexify(data):
+    matchObj = re.match(regex, data, re.M|re.I)
+    if matchObj:
+        return matchObj.group(), matchObj.group(1), matchObj.group(2), matchObj.group(3), matchObj.group(4), matchObj.group(5), matchObj.group(6)
+    else:
+        return ''
+
+def get_nick(string):
+    return string[0:string.index('!')]
+
 
 # Classes
 
@@ -65,11 +78,16 @@ class BotBehavior():
     def bot_ai(self, data):
         pass
 
-    def regexify_data(self, data):
-        regex = '^(:(\S+) )?(\S+)( (?!:)(.+?))?( :(.+))?$'
-        matchObj = re.match(regex, data, re.M|re.I)
-        if matchObj:
-            return matchObj.group(), matchObj(1), matchObj(2), matchObj(3), matchObj(4), matchObj(5), matchObj(6)
+
+    def bot_ai(self, data, timestamp):
+
+        regexed_list = []
+
+        if data.find('PRIVMSG '+ self.nick + ' :!tutor') != -1:
+            regexed_list = regexify(data)
+            self.msgto = get_nick(regexed_list[2])
+            self.irc.send('PRIVMSG ' + self.msgto + ' :Its working !\r\n')
+
 
     def run(self):
         while running:
@@ -86,22 +104,19 @@ class BotBehavior():
                 try:
                     timestamp = int(time.time())
                     data = self.irc.recv(2048)
-                    if settings.DEBUG:
-                        print data
+
+                    print data
 
                     if data.find('PING') != -1:
                         self.irc.send('PONG ' + data.split() [1] + '\r\n')
 
-                    if data.find('Message of the Day'):
+                    if data.find('Message of the Day') != -1:
                         self.irc.send('JOIN '+ self.channel + '\r\n')
 
                     if data.find('+iwR') != -1:
                         self.irc.send('PRIVMSG NickServ IDENTIFY '+ self.nick + ' ' + self.password + '\r\n')
-
-                    if data.find('!tutor') != -1:
-                        self.regexify(data)
-                        self.irc.send('PRIVMSG ' + self.to + ' Its working !')
-
+                        
+                    self.bot_ai(data, timestamp)
 
                 except Exception:
                    pass
