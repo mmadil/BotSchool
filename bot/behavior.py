@@ -1,5 +1,7 @@
 #!/usr/bin/python -tt
 
+from settings import MODULES
+
 import re
 import settings
 
@@ -13,6 +15,7 @@ regex = '^(:(\S+) )?(\S+)( (?!:)(.+?))?( :(.+))?$'
 def regexify(data):
     matchObj = re.match(regex, data, re.M|re.I)
     if matchObj:
+        print matchObj.group(), matchObj.group(1), matchObj.group(2), matchObj.group(3), matchObj.group(4), matchObj.group(5), matchObj.group(6)
         return matchObj.group(), matchObj.group(1), matchObj.group(2), matchObj.group(3), matchObj.group(4), matchObj.group(5), matchObj.group(6)
     else:
         return ''
@@ -21,6 +24,21 @@ def regexify(data):
 def get_nick(string):
     return string[0:string.index('!')]
 
+def get_module(string):
+    print string[string.index('!') + 6:]
+    return string[string.index('!') + 6:]
+
+def list_modules():
+    string = ' '
+
+    if len(MODULES) == 1:
+        return 'We have 1 module : ' + MODULES[0]
+    else:
+        count = 1
+        for e in MODULES:
+            string += str(e) + ', '
+        return 'We have '+str(len(MODULES))+' modules : '+ string[:-2]
+	
 
 
 # AI Functions
@@ -46,7 +64,18 @@ def ai(data, bot, irc):
         if data.find('PRIVMSG '+ nick + ' :!tutor') != -1:
             regexed_list = regexify(data)
             msgto = get_nick(regexed_list[2])
-            irc.send('PRIVMSG ' + msgto + ' :Its working !\r\n')
+            string = list_modules(regexed_list[6])
+            irc.send('PRIVMSG ' + msgto + ' :Hi ' + msgto +' ! \r\n')
+            irc.send('PRIVMSG ' + msgto + ' :What would you like to learn ?\r\n')
+            irc.send('PRIVMSG ' + msgto + ' :You can learn from any of them : \r\n')
+            irc.send('PRIVMSG ' + msgto + ' :'+ string + '\r\n')
+            irc.send('PRIVMSG ' + msgto + ' :List the chapters using !list <modulename>\r\n')
+
+        if data.find('PRIVMSG '+ nick + ' :!list') != -1:
+            regexed_list = regexify(data)
+            msgto = get_nick(regexed_list[2])
+            module = get_module(regexed_list[6])
+            irc.send('PRIVMSG ' + msgto + ' :Module ' + module +' has the following chapters :\r\n')
 
 
     if bot_type == 'Teacher':

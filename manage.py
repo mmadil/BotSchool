@@ -1,6 +1,6 @@
 #!/usr/bin/python -tt
 
-from settings import bots
+from settings import BOTS
 from bot.core import Bot
 
 import sys
@@ -10,15 +10,15 @@ import sys
 def getlist():
     string = ''
 
-    if len(bots) == 1:
-        return 'We have 1 bot. \n 1. ' + bots.keys()[0]
+    if len(BOTS) == 1:
+        return 'We have 1 bot. \n 1. ' + BOTS.keys()[0]
     else:
         count = 1
-        for e in bots.keys():
+        for e in BOTS.keys():
             string += str(count)+'. '
             string += str(e) + '\n '
             count += 1
-        return 'We have '+str(len(bots))+' bots. \n '+string
+        return 'We have '+str(len(BOTS))+' bots. \n '+string
 
 
 class Initializer():
@@ -35,7 +35,7 @@ class Initializer():
             print getlist()
             bot = raw_input("Choose any botname : ")
 
-            if bot in bots:
+            if bot in BOTS:
                 return self.runbot(bot)
             else:
                 return "Please choose an appropriate bot !"

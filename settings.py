@@ -6,7 +6,7 @@ PORT = 6667
 DEBUG = True
 
 # Register every bot here.
-bots = {
+BOTS = {
         'helperbot': [
             'Helper',         # Bot Type
             'HelperBot',      # Nick
@@ -27,3 +27,9 @@ bots = {
             ],
         }
 
+
+# Enable every modules here 
+
+MODULES = (
+    'irc',
+)
