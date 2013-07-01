@@ -24,8 +24,9 @@ Handbook helps you learn these things in near future :
 + ZNC (Bouncer)
 
 
-#### Bots
-----------------------------
+Bots
+====================
+
 
   Bots manage most of the IRC activities themselves.
 Different types of bots help us achieve the desired results.
