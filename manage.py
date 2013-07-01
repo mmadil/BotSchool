@@ -1,10 +1,25 @@
 #!/usr/bin/python -tt
 
-from bots import botlist
 from settings import bots
-from bots.core import BotBehavior
+from bots.core import Bot
 
 import sys
+
+# Helper Functions and Global Variables
+
+def getlist():
+    string = ''
+
+    if len(bots) == 1:
+        return 'We have 1 bot. \n 1. ' + bots.keys()[0]
+    else:
+        count = 1
+        for e in bots.keys():
+            string += str(count)+'. '
+            string += str(e) + '\n '
+            count += 1
+        return 'We have '+str(len(bots))+' bots. \n '+string
+
 
 class Initializer():
     # This class loads the bot and initiates it.
@@ -17,7 +32,7 @@ class Initializer():
     def arguments(self):
 
         if 'run' in self.arg:
-            print botlist.getlist()
+            print getlist()
             bot = raw_input("Choose any botname : ")
 
             if bot in bots:
@@ -26,17 +41,17 @@ class Initializer():
                 return "Please choose an appropriate bot !"
 
         if 'list' in self.arg:
-            return botlist.getlist()
+            return getlist()
 
-        elif self.arg not in ['run','list','more']:
+        elif self.arg not in ['run','list']:
             return """
-            Usage : python manage.py [ run | list | more ]
+            Usage : python manage.py [ run | list ]
 
             """
 
     def runbot(self, bot):
         print '\nLoading bot', bot
-        start = BotBehavior(bot)
+        start = Bot(bot)
         print start
         start.main()
         return ''

@@ -30,8 +30,8 @@ Handbook helps you learn these things in near future :
   Bots manage most of the IRC activities themselves.
 Different types of bots help us achieve the desired results.
 
-Bots here are of the follwing types :
+Bots are of the follwing types :
 
-+ Helper  - Manages the channel operations and some commands.
++ Helper  - Manages the channel operations with some commands.
 + Teacher - Reads the user documents provided in the handbook.
 

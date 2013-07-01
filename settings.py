@@ -3,12 +3,13 @@ SERVER = '127.0.0.1'
 PORT = 6667
 
 # Other settings
-DEBUG = True
+DEBUG = False
 
 # Register every bot here.
 
 bots = {
         'helperbot': [
+            'Helper',         # Bot Type
             'HelperBot',      # Nick
             'helperbot',      # Ident
             'password',       # Password

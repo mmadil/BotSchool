@@ -53,7 +53,7 @@ class BotModules():
 
 
 
-class BotBehavior():
+class Bot():
     def __init__(self, bot):
         self.server = settings.SERVER
         self.port = settings.PORT
@@ -62,7 +62,7 @@ class BotBehavior():
 
         # Will add this part to another class later.
         if self.bot:
-            self.nick, self.ident, self.password, self.channel, self.realname, self.hostname = get_bot_details(self.bot)
+            self.type, self.nick, self.ident, self.password, self.channel, self.realname, self.hostname = get_bot_details(self.bot)
         else:
             print "Sorry, Which bot ?"
             exit(1)
@@ -74,9 +74,6 @@ class BotBehavior():
 
     def main(self):
         self.run()
-
-    def bot_ai(self, data):
-        pass
 
 
     def bot_ai(self, data, timestamp):
@@ -105,7 +102,9 @@ class BotBehavior():
                     timestamp = int(time.time())
                     data = self.irc.recv(2048)
 
-                    print data
+                    if settings.DEBUG:
+                        print data
+
 
                     if data.find('PING') != -1:
                         self.irc.send('PONG ' + data.split() [1] + '\r\n')
