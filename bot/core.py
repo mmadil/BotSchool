@@ -29,7 +29,8 @@ class Bot():
         self.bot = bot
 
         if self.bot:
-            self.bot_type, self.nick, self.ident, self.password, self.channel, self.realname, self.hostname = self.bot_details = get_bot_details(self.bot)
+            self.bot_type, self.nick, self.ident, self.password, self.channel, self.realname,\
+                    self.hostname = self.bot_details = get_bot_details(self.bot)
         else:
             print "Sorry, Which bot ?"
             exit(1)

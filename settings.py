@@ -6,7 +6,6 @@ PORT = 6667
 DEBUG = True
 
 # Register every bot here.
-
 bots = {
         'helperbot': [
             'Helper',         # Bot Type
