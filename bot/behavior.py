@@ -1,6 +1,6 @@
 #!/usr/bin/python -tt
 
-from settings import MODULES
+from settings import BOTS, MODULES
 
 import os
 import re
@@ -9,7 +9,7 @@ import uuid
 # Global variables
 
 regex = '^(:(\S+) )?(\S+)( (?!:)(.+?))?( :(.+))?$'
-
+some_channel = ''
 
 # Helper functions
 
@@ -46,6 +46,7 @@ def capture_information(string):
     return string[string.index('!') + 6:][:-1]
 
 
+
 def get_chapters(module):
     path = '.'
     chapters = []
@@ -64,12 +65,27 @@ def get_chapters(module):
     return chapters
 
 
+
+def get_help():
+    bots = []
+
+    for e in BOTS.keys():
+        if BOTS.values()[BOTS.keys().index(e)][0] == 'Helper':
+            bots.append(BOTS.values()[BOTS.keys().index(e)][1])
+        else:
+            pass
+
+    return bots
+
+
+
 # AI Functions
 
 def ai(data, bot, irc):
     bot_type, nick, ident, password, channel, realname, hostname = bot
 
     if bot_type != 'Speaker':
+
         if data.find('PING') != -1:
             irc.send('PONG ' + data.split() [1] + '\r\n')
 
@@ -84,6 +100,7 @@ def ai(data, bot, irc):
 
         if bot_type == 'Helper':
             regexed_list = []
+
 
             if data.find('PRIVMSG '+ str(nick) + ' :!tutor') != -1:
                 regexed_list = regexify(data)
@@ -119,12 +136,37 @@ def ai(data, bot, irc):
                 if chapter:
                     irc.send('PRIVMSG ' + str(msgto) + ' :Join #'+ str(classroom) +' to start \r\n')
                     irc.send('PRIVMSG ' + str(msgto) + ' :You can join it by typing /join #'+ str(classroom) +'\r\n')
+                    irc.send('JOIN ' + str(classroom) + '\r\n')
+                    irc.send('INVITE ' )
                 else:
                     irc.send('PRIVMSG ' + str(msgto) + ' :Sorry you are searching for a wrong chapter, start again. \r\n')
 
 
         if bot_type == 'Teacher':
-            pass
+            regexed_list = []
+            helperbots = get_help()
+            helperbots.append('adil')  # Added this for development purposes only.
+
+
+            if data.find('INVITE ' + str(nick)) != -1:
+                global some_channel
+                regexed_list = regexify(data)
+                caller = get_nick(regexed_list[2])
+                some_channel = regexed_list[6][regexed_list[6].index(':')+1:]
+
+                if caller in helperbots:
+                    irc.send('JOIN ' + str(some_channel)+ '\r\n')
+
+                else:
+                    irc.send('PRIVMSG ' + str(caller) + ' :I do not take commands from you \r\n')
+
+
+            if data.find('JOIN :' + str(some_channel) + '\r\n') != -1:
+                global some_channel
+                print "I am here", some_channel
+                irc.send('PRIVMSG '+ str(some_channel) +':Type !go whenever ready \r\n')
+
+
 
     else:
         pass

@@ -47,7 +47,7 @@ class Bot():
 
     def run(self):
         while running:
-            if self.bot_type != 'Speaker':
+            if self.bot_type != 'speakingbot':
                 self.ping_time = int(time.time())
                 self.irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 self.irc.settimeout(240)

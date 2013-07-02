@@ -24,7 +24,7 @@ BOTS = {
             'TeacherBot',
             'teacherbot',
             'password',
-            '#Tutorials',
+            '#tutorials',
             'IRC Teacher Bot',
             'hostname',
             ],
