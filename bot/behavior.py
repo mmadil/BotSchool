@@ -71,10 +71,10 @@ def ai(data, bot, irc):
         if data.find('PRIVMSG '+ nick + ' :!tutor') != -1:
             regexed_list = regexify(data)
             msgto = get_nick(regexed_list[2])
-            string = list_modules(regexed_list[6])
+            string = list_modules()
             irc.send('PRIVMSG ' + str(msgto) + ' :Hi ' + msgto +' ! \r\n')
             irc.send('PRIVMSG ' + str(msgto) + ' :What would you like to learn ?\r\n')
-            irc.send('PRIVMSG ' + str(msgto) + ' :You can learn from any of them : \r\n')
+            irc.send('PRIVMSG ' + str(msgto) + ' :You can learn : \r\n')
             irc.send('PRIVMSG ' + str(msgto) + ' :'+ string + '\r\n')
             irc.send('PRIVMSG ' + str(msgto) + ' :List the chapters using !list <modulename>\r\n')
 

@@ -16,9 +16,11 @@ def getlist():
         count = 1
         for e in BOTS.keys():
             string += str(count)+'. '
-            string += str(e) + '\n '
+            string += str(e) + '\n'
+            string += ' Type : ' + str( BOTS.values()[BOTS.keys().index(e)][0]) + '\n'
+            string += ' Nick : ' + str( BOTS.values()[BOTS.keys().index(e)][1]) + ' \n\n '
             count += 1
-        return 'We have '+str(len(BOTS))+' bots. \n '+string
+        return 'We have '+str(len(BOTS))+' bots. \n\n '+string
 
 
 class Initializer():
@@ -62,5 +64,4 @@ if __name__ == '__main__':
     init = Initializer(list(sys.argv))
     print init
     print init.arguments()
-
 
