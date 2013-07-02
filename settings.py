@@ -5,6 +5,7 @@ PORT = 6667
 # Other settings
 DEBUG = False
 
+
 # Register every bot here.
 BOTS = {
         'helperbot': [

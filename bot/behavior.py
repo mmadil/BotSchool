@@ -1,9 +1,11 @@
 #!/usr/bin/python -tt
 
-from settings import MODULES
+#from settings import MODULES
 
+MODULES = ['irc']
+
+import os
 import re
-import settings
 
 # Global variables
 
@@ -15,8 +17,9 @@ regex = '^(:(\S+) )?(\S+)( (?!:)(.+?))?( :(.+))?$'
 def regexify(data):
     matchObj = re.match(regex, data, re.M|re.I)
     if matchObj:
-        print matchObj.group(), matchObj.group(1), matchObj.group(2), matchObj.group(3), matchObj.group(4), matchObj.group(5), matchObj.group(6)
-        return matchObj.group(), matchObj.group(1), matchObj.group(2), matchObj.group(3), matchObj.group(4), matchObj.group(5), matchObj.group(6)
+        return matchObj.group(), matchObj.group(1), matchObj.group(2),\
+                matchObj.group(3), matchObj.group(4), matchObj.group(5),\
+                matchObj.group(6)
     else:
         return ''
 
@@ -44,8 +47,23 @@ def get_module(string):
     return string[string.index('!') + 6:][:-1]
 
 
-def get_chapters(string):
-    pass
+def get_chapters(module):
+    path = '.'
+    chapters = []
+    for situated_at, dirs, files in os.walk(path):
+        for file_name in files:
+            if file_name.endswith((".txt")):
+                matchObj = re.match('./(\S+)/(\S+)', situated_at, re.M|re.I)
+                if module in MODULES:
+                    if module == matchObj.group(2):
+                        chapters.append(file_name)
+                    else:
+                        pass
+                else:
+                    pass
+
+    return chapters
+
 
 
 # AI Functions
