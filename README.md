@@ -1,7 +1,7 @@
 Learn to code 
 ====================
 
-Coders Initiative !
+Coders Initiative.
 
 Now coding is all fun with Bot School.
 
