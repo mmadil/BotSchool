@@ -46,34 +46,43 @@ class Bot():
 
 
     def run(self):
-        while running:
-            if self.bot_type != 'speakingbot':
-                self.ping_time = int(time.time())
-                self.irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                self.irc.settimeout(240)
-                self.irc.connect((self.server, self.port))
+            if self.bot_type == 'Helper' or self.bot_type == 'Teacher':
+                while running:
+                    self.ping_time = int(time.time())
+                    self.irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    self.irc.settimeout(240)
+                    self.irc.connect((self.server, self.port))
 
-                self.irc.send('USER ' + self.nick + ' host ' + self.hostname + ' :'+ self.realname +'\r\n')
-                self.irc.send('NICK ' + self.nick + '\r\n')
-                self.connected = True
+                    self.irc.send('USER ' + self.nick + ' host ' + self.hostname + ' :'+ self.realname +'\r\n')
+                    self.irc.send('NICK ' + self.nick + '\r\n')
+                    self.connected = True
 
-                while self.connected:
-                    try:
-                        timestamp = int(time.time())
-                        data = self.irc.recv(2048)
+                    while self.connected:
+                        try:
+                            timestamp = int(time.time())
+                            data = self.irc.recv(2048)
 
-                        if settings.DEBUG:
-                            print data
+                            if settings.DEBUG:
+                                print data
 
-                        ai(data, self.bot_details, self.irc)
+                            ai(data, self.bot_details, self.irc)
 
-                    except Exception, err:
-                       import traceback, os.path
-                       traceback.print_exc(err)
-                       self.connected = False
-                       print err
-                       pass
+                        except Exception, err:
+                            import traceback, os.path
+                            traceback.print_exc(err)
+                            self.connected = False
+                            print err
+                            pass
 
             else:
-                pass
+                try:
+                    data = ''
+                    irc = ''
+                    ai(data, self.bot_details, irc)
 
+                except Exception, err:
+                    import traceback, os.path
+                    traceback.print_exc(err)
+                    self.created = False
+                    print err
+                    pass

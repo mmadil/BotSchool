@@ -5,6 +5,7 @@ from settings import BOTS, MODULES
 import os
 import re
 import uuid
+from espeak import espeak
 
 # Global variables
 
@@ -93,13 +94,15 @@ def event_handler(channel, nick, chapter):
 
     pass
 
+def menu():
+    pass
 
 # AI Functions
 
 def ai(data, bot, irc):
     bot_type, nick, ident, password, channel, realname, hostname = bot
 
-    if bot_type != 'Speaker':
+    if bot_type == 'Helper' or bot_type == 'Teacher':
 
         if data.find('PING') != -1:
             irc.send('PONG ' + data.split() [1] + '\r\n')
@@ -180,7 +183,28 @@ def ai(data, bot, irc):
                 pass
 
 
-
     else:
-        pass
+        print 'Commands - !tutor, !list, !teachme'
+        espeak.synth('Hi ! I am %s .' % (str(nick)))
+        command = raw_input('>')
+        running = True
+
+        while running:
+            if command == '!tutor':
+                string = list_modules()
+                espeak.synth('What would you like to learn ?')
+                espeak.synth('%s' % string)
+                command = raw_input('List the chapters using !list <modulename>')
+                espeak.synth('You selected %s' % command)
+                
+
+            elif command == '!list':
+                print 'No'
+            elif command == '!teachme':
+                print 'Okay'
+            else:
+                print 'Get lost!'
+
+
+
 

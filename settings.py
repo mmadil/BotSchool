@@ -28,6 +28,15 @@ BOTS = {
             'IRC Teacher Bot',
             'hostname',
             ],
+        'speakerbot': [
+            'Speaker',
+            'Steve',
+            'Steve',
+            '',
+            '',
+            'Teacher Bot',
+            '',
+            ],
         }
 
 
