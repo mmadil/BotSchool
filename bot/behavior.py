@@ -79,6 +79,21 @@ def get_help():
 
 
 
+def event_handler(channel, nick, chapter):
+    # When Helper bot assigns a Teacher bot a channel this handler
+    # registers a nick, channel and chapter name where Teacher
+    # bot will start teaching that particular chapter.
+    # Data Structure looks like this :
+
+    # { 
+    #     'channel1' : [nick1, chapter1],
+    #     'channel2' : [nick2, chapter2],
+    #     and so on ....
+    # }
+
+    pass
+
+
 # AI Functions
 
 def ai(data, bot, irc):
@@ -146,10 +161,10 @@ def ai(data, bot, irc):
             regexed_list = []
             helperbots = get_help()
             helperbots.append('adil')  # Added this for development purposes only.
+            some_channel = ''
 
 
             if data.find('INVITE ' + str(nick)) != -1:
-                global some_channel
                 regexed_list = regexify(data)
                 caller = get_nick(regexed_list[2])
                 some_channel = regexed_list[6][regexed_list[6].index(':')+1:]
@@ -161,10 +176,8 @@ def ai(data, bot, irc):
                     irc.send('PRIVMSG ' + str(caller) + ' :I do not take commands from you \r\n')
 
 
-            if data.find('JOIN :' + str(some_channel) + '\r\n') != -1:
-                global some_channel
-                print "I am here", some_channel
-                irc.send('PRIVMSG '+ str(some_channel) +':Type !go whenever ready \r\n')
+            if data.find('JOIN :' + str(some_channel)) != -1:
+                pass
 
 
 
