@@ -81,7 +81,9 @@ def get_all_chapters():
     return chapters
 
 
-def read_chapter(chapter):
+def read_chapter(irc, chapter, msgto):
+    print 'A new child ',  os.getpid()
+
     path = '.'
     chapter += '.txt'
 
@@ -89,8 +91,11 @@ def read_chapter(chapter):
         for file_name in files:
             if file_name.endswith(('.txt')):
                 if file_name == chapter:
-                    return situated_at + '/' + chapter
-                    
+                    for lines in file(situated_at + '/' + chapter):
+                        irc.send('PRIVMSG ' + str(msgto) + ' :' + str(lines) + '\r\n')
+                    irc.send('PRIVMSG ' + str(msgto) + ' :==== End ===== \r\n')
+    os._exit(0)
+
 
 def menu():
     pass
@@ -151,9 +156,12 @@ def ai(data, bot, irc):
                 chapters = get_all_chapters() # this is a big issue now ! Will work on it later.
                 if chapter in chapters:
                     irc.send('PRIVMSG ' + str(msgto) + ' :Ok, Lets start with ' + str(chapter) + '\r\n')
-                    for lines in file(read_chapter(chapter)):
-                        irc.send('PRIVMSG ' + str(msgto) + ' :' + str(lines) + '\r\n')
-                    irc.send('PRIVMSG ' + str(msgto) + ' :==== End ===== \r\n')
+                    newpid = os.fork()
+                    if newpid == 0:
+                        read_chapter(irc, chapter, msgto)
+                    else:
+                        pids = (os.getpid(), newpid)
+                        print "parent: %d, child: %d" % pids
                 else:
                     irc.send('PRIVMSG ' + str(msgto) + ' :Sorry you are searching for a wrong chapter, start again. \r\n')             
 
