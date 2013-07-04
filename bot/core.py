@@ -46,7 +46,7 @@ class Bot():
 
 
     def run(self):
-            if self.bot_type == 'Helper' or self.bot_type == 'Teacher':
+            if self.bot_type == 'Teacher':
                 while running:
                     self.ping_time = int(time.time())
                     self.irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

@@ -82,31 +82,6 @@ def get_help():
 
 
 
-def event_handler(bot_type, channel, nick, chapter):
-    # When Helper bot assigns a Teacher bot a channel this handler
-    # registers a nick, channel and chapter name where Teacher
-    # bot will start teaching that particular chapter.
-    # Data Structure looks like this :
-
-    # { 
-    #     'channel1' : [nick1, chapter1],
-    #     'channel2' : [nick2, chapter2],
-    #     and so on ....
-    # }
-
-    struct = {}
-
-    if bot_type == 'Helper':
-        struct[channel] = [nick, chapter]
-        print "Added these information : ", channel, nick, chapter
-        print len(struct)
-        print struct
-
-    elif bot_type == 'Teacher':
-        pass
-
-
-
 def menu():
     pass
 
@@ -115,7 +90,7 @@ def menu():
 def ai(data, bot, irc):
     bot_type, nick, ident, password, channel, realname, hostname = bot
 
-    if bot_type == 'Helper' or bot_type == 'Teacher':
+    if bot_type == 'Teacher':
 
         if data.find('PING') != -1:
             irc.send('PONG ' + data.split() [1] + '\r\n')
@@ -167,11 +142,16 @@ def ai(data, bot, irc):
                 if chapter:
                     irc.send('PRIVMSG ' + str(msgto) + ' :Join #'+ str(classroom) +' to start \r\n')
                     irc.send('PRIVMSG ' + str(msgto) + ' :You can join it by typing /join #'+ str(classroom) +'\r\n')
-                    event_handler(bot_type, classroom, msgto, chapter)
+                    irc.send('JOIN #' + str(classroom) + '\r\n')
+                    
                 else:
                     irc.send('PRIVMSG ' + str(msgto) + ' :Sorry you are searching for a wrong chapter, start again. \r\n')
 
 
+            if data.find('JOIN :#') != -1:
+                        print "he is here"                
+
+"""
         if bot_type == 'Teacher':
             regexed_list = []
             helperbots = get_help()
@@ -193,7 +173,7 @@ def ai(data, bot, irc):
 
             if data.find('JOIN :' + str(some_channel)) != -1:
                 pass
-
+"""
 
     else:
         print 'Commands - !tutor, !list, !teachme'
