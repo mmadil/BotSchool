@@ -4,7 +4,6 @@ from settings import BOTS, MODULES
 
 import os
 import re
-import uuid
 from espeak import espeak
 
 # Global variables
@@ -46,8 +45,10 @@ def list_modules():
 def capture_information(string):
     return string[string.index('!') + 6:][:-1]
 
+
 def capture_chapter(string):
     return string[string.index('!') + 9:][:-1]
+
 
 
 def get_chapters(module):
@@ -66,19 +67,6 @@ def get_chapters(module):
                     pass
 
     return chapters
-
-
-
-def get_help():
-    bots = []
-
-    for e in BOTS.keys():
-        if BOTS.values()[BOTS.keys().index(e)][0] == 'Helper':
-            bots.append(BOTS.values()[BOTS.keys().index(e)][1])
-        else:
-            pass
-
-    return bots
 
 
 
@@ -104,7 +92,7 @@ def ai(data, bot, irc):
         if data.find('KICK') != -1:
             irc.send('JOIN ' + str(channel) + '\r\n')
 
-        if bot_type == 'Helper':
+        if bot_type == 'Teacher':
             regexed_list = []
 
 
@@ -138,43 +126,14 @@ def ai(data, bot, irc):
                 regexed_list = regexify(data)
                 msgto = get_nick(regexed_list[2])
                 chapter = capture_chapter(regexed_list[6])
-                classroom = uuid.uuid1().hex
-                if chapter:
-                    irc.send('PRIVMSG ' + str(msgto) + ' :Join #'+ str(classroom) +' to start \r\n')
-                    irc.send('PRIVMSG ' + str(msgto) + ' :You can join it by typing /join #'+ str(classroom) +'\r\n')
-                    irc.send('JOIN #' + str(classroom) + '\r\n')
-                    
+                chapters = get_chapters()
+                if chapter in chapters:
+                    irc.send('PRIVMSG ' + str(msgto) + ' :Ok, Lets start with ' + str(chapter) + '\r\n')
                 else:
-                    irc.send('PRIVMSG ' + str(msgto) + ' :Sorry you are searching for a wrong chapter, start again. \r\n')
+                    irc.send('PRIVMSG ' + str(msgto) + ' :Sorry you are searching for a wrong chapter, start again. \r\n')             
 
-
-            if data.find('JOIN :#') != -1:
-                        print "he is here"                
-
-"""
-        if bot_type == 'Teacher':
-            regexed_list = []
-            helperbots = get_help()
-            helperbots.append('adil')  # Added this for development purposes only.
-            some_channel = ''
-
-
-            if data.find('INVITE ' + str(nick)) != -1:
-                regexed_list = regexify(data)
-                caller = get_nick(regexed_list[2])
-                some_channel = regexed_list[6][regexed_list[6].index(':')+1:]
-
-                if caller in helperbots:
-                    irc.send('JOIN ' + str(some_channel)+ '\r\n')
-
-                else:
-                    irc.send('PRIVMSG ' + str(caller) + ' :I do not take commands from you \r\n')
-
-
-            if data.find('JOIN :' + str(some_channel)) != -1:
-                pass
-"""
-
+    
+    # Code for speaker bot starts here. 
     else:
         print 'Commands - !tutor, !list, !teachme'
         espeak.synth('Hi ! I am %s .' % (str(nick)))
