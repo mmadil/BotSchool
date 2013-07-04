@@ -4,6 +4,7 @@ from settings import BOTS, MODULES
 
 import os
 import re
+import time
 from espeak import espeak
 
 # Global variables
@@ -60,7 +61,7 @@ def get_chapters(module):
                 matchObj = re.match('./(\S+)/(\S+)', situated_at, re.M|re.I)
                 if module in MODULES:
                     if module == matchObj.group(2):
-                        chapters.append(file_name)
+                        chapters.append(file_name[:-4])
                     else:
                         pass
                 else:
@@ -68,7 +69,28 @@ def get_chapters(module):
 
     return chapters
 
+def get_all_chapters():
+    path = '.'
+    chapters = []
 
+    for situated_at, dirs, files in os.walk(path):
+        for file_name in files:
+            if file_name.endswith((".txt")):
+                chapters.append(file_name[:-4])
+                
+    return chapters
+
+
+def read_chapter(chapter):
+    path = '.'
+    chapter += '.txt'
+
+    for situated_at, dirs, files in os.walk(path):
+        for file_name in files:
+            if file_name.endswith(('.txt')):
+                if file_name == chapter:
+                    return situated_at + '/' + chapter
+                    
 
 def menu():
     pass
@@ -115,7 +137,7 @@ def ai(data, bot, irc):
                 if len(chapters) != 0:
                     irc.send('PRIVMSG ' + str(msgto) + ' :'+ str(module) +' has the following chapters : \r\n')
                     for e in chapters:
-                        irc.send('PRIVMSG ' + str(msgto) + ' :'+ str(e[:-4]) +'\r\n')
+                        irc.send('PRIVMSG ' + str(msgto) + ' :'+ str(e) +'\r\n')
                     irc.send('PRIVMSG ' + str(msgto) + ' :==== End ==== \r\n')
                     irc.send('PRIVMSG ' + str(msgto) + ' :Type !teacheme <chapter> to start learning ;) \r\n')
                 else:
@@ -126,9 +148,12 @@ def ai(data, bot, irc):
                 regexed_list = regexify(data)
                 msgto = get_nick(regexed_list[2])
                 chapter = capture_chapter(regexed_list[6])
-                chapters = get_chapters()
+                chapters = get_all_chapters() # this is a big issue now ! Will work on it later.
                 if chapter in chapters:
                     irc.send('PRIVMSG ' + str(msgto) + ' :Ok, Lets start with ' + str(chapter) + '\r\n')
+                    for lines in file(read_chapter(chapter)):
+                        irc.send('PRIVMSG ' + str(msgto) + ' :' + str(lines) + '\r\n')
+                    irc.send('PRIVMSG ' + str(msgto) + ' :==== End ===== \r\n')
                 else:
                     irc.send('PRIVMSG ' + str(msgto) + ' :Sorry you are searching for a wrong chapter, start again. \r\n')             
 
