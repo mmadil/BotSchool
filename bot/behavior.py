@@ -46,6 +46,8 @@ def list_modules():
 def capture_information(string):
     return string[string.index('!') + 6:][:-1]
 
+def capture_chapter(string):
+    return string[string.index('!') + 9:][:-1]
 
 
 def get_chapters(module):
@@ -80,7 +82,7 @@ def get_help():
 
 
 
-def event_handler(channel, nick, chapter):
+def event_handler(bot_type, channel, nick, chapter):
     # When Helper bot assigns a Teacher bot a channel this handler
     # registers a nick, channel and chapter name where Teacher
     # bot will start teaching that particular chapter.
@@ -92,7 +94,18 @@ def event_handler(channel, nick, chapter):
     #     and so on ....
     # }
 
-    pass
+    struct = {}
+
+    if bot_type == 'Helper':
+        struct[channel] = [nick, chapter]
+        print "Added these information : ", channel, nick, chapter
+        print len(struct)
+        print struct
+
+    elif bot_type == 'Teacher':
+        pass
+
+
 
 def menu():
     pass
@@ -149,13 +162,12 @@ def ai(data, bot, irc):
             if data.find('PRIVMSG '+ str(nick) + ' :!teachme') != -1:
                 regexed_list = regexify(data)
                 msgto = get_nick(regexed_list[2])
-                chapter = capture_information(regexed_list[6])
+                chapter = capture_chapter(regexed_list[6])
                 classroom = uuid.uuid1().hex
                 if chapter:
                     irc.send('PRIVMSG ' + str(msgto) + ' :Join #'+ str(classroom) +' to start \r\n')
                     irc.send('PRIVMSG ' + str(msgto) + ' :You can join it by typing /join #'+ str(classroom) +'\r\n')
-                    irc.send('JOIN ' + str(classroom) + '\r\n')
-                    irc.send('INVITE ' +  + '\r\n')
+                    event_handler(bot_type, classroom, msgto, chapter)
                 else:
                     irc.send('PRIVMSG ' + str(msgto) + ' :Sorry you are searching for a wrong chapter, start again. \r\n')
 
@@ -198,8 +210,8 @@ def ai(data, bot, irc):
                 espeak.synth('You selected %s' % command)
                 
 
-            elif command == '!list ' + str(capture_information()):
-                print 'No'
+            elif command == '!list ' + str(capture_information(command)):
+                print command
             elif command == '!teachme':
                 print 'Okay'
             else:
