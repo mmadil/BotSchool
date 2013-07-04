@@ -155,7 +155,7 @@ def ai(data, bot, irc):
                     irc.send('PRIVMSG ' + str(msgto) + ' :Join #'+ str(classroom) +' to start \r\n')
                     irc.send('PRIVMSG ' + str(msgto) + ' :You can join it by typing /join #'+ str(classroom) +'\r\n')
                     irc.send('JOIN ' + str(classroom) + '\r\n')
-                    irc.send('INVITE ' )
+                    irc.send('INVITE ' +  + '\r\n')
                 else:
                     irc.send('PRIVMSG ' + str(msgto) + ' :Sorry you are searching for a wrong chapter, start again. \r\n')
 
@@ -198,7 +198,7 @@ def ai(data, bot, irc):
                 espeak.synth('You selected %s' % command)
                 
 
-            elif command == '!list':
+            elif command == '!list ' + str(capture_information()):
                 print 'No'
             elif command == '!teachme':
                 print 'Okay'
