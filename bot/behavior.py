@@ -98,7 +98,8 @@ def read_chapter(irc, chapter, msgto):
 
 
 def menu():
-    pass
+    print 'Commands - !tutor, !list, !teachme'
+
 
 # AI Functions
 
@@ -154,41 +155,26 @@ def ai(data, bot, irc):
                 msgto = get_nick(regexed_list[2])
                 chapter = capture_chapter(regexed_list[6])
                 chapters = get_all_chapters() # this is a big issue now ! Will work on it later.
+                children = []
+
                 if chapter in chapters:
                     irc.send('PRIVMSG ' + str(msgto) + ' :Ok, Lets start with ' + str(chapter) + '\r\n')
                     newpid = os.fork()
-                    if newpid == 0:
+                    if newpid:
+                        print newpid
+                        children.append(newpid)
                         read_chapter(irc, chapter, msgto)
-                    else:
-                        pids = (os.getpid(), newpid)
-                        print "parent: %d, child: %d" % pids
+
+                    for i, child in enumerate(children):
+                        os.waitpid(child, 0)
+
                 else:
                     irc.send('PRIVMSG ' + str(msgto) + ' :Sorry you are searching for a wrong chapter, start again. \r\n')             
 
     
     # Code for speaker bot starts here. 
     else:
-        print 'Commands - !tutor, !list, !teachme'
-        espeak.synth('Hi ! I am %s .' % (str(nick)))
-        command = raw_input('>')
-        running = True
-
-        while running:
-            if command == '!tutor':
-                string = list_modules()
-                espeak.synth('What would you like to learn ?')
-                espeak.synth('%s' % string)
-                command = raw_input('List the chapters using !list <modulename>')
-                espeak.synth('You selected %s' % command)
-                
-
-            elif command == '!list ' + str(capture_information(command)):
-                print command
-            elif command == '!teachme':
-                print 'Okay'
-            else:
-                print 'Get lost!'
-
-
-
-
+        print 'What would you like to learn ? '
+        modules = list_modules()
+        print modules
+        choice = raw_input('>')
