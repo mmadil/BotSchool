@@ -103,9 +103,7 @@ def speak_chapter(chapter):
         for file_name in files:
             if file_name.endswith(('.txt')):
                 if file_name == chapter:
-                    for lines in file(situated_at + '/' + chapter):
-                        print lines
-                        subprocess.call('espeak "' + str(lines) + '"', shell=True)
+                    subprocess.call('espeak -p 75 -f ' + situated_at + '/' + chapter + '', shell=True)
 
 
 def menu():
