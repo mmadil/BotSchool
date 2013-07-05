@@ -6,7 +6,6 @@ import os
 import re
 import time
 import subprocess
-from espeak import espeak
 
 # Global variables
 
@@ -106,9 +105,6 @@ def speak_chapter(chapter):
                     subprocess.call('espeak -p 75 -f ' + situated_at + '/' + chapter + '', shell=True)
 
 
-def menu():
-    print 'Commands - !tutor, !list, !teachme'
-
 
 # AI Functions
 
@@ -193,6 +189,11 @@ def ai(data, bot, irc):
                 while running:
                     speak_chapter(chapter)
                     running = False
+            else:
+                print "Please provide a chapters name"
 
+        else:
+            print "Invalid choice!"
+            sys.exit(1)
 
 
