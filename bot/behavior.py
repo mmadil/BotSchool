@@ -5,6 +5,7 @@ from settings import BOTS, MODULES
 import os
 import re
 import time
+import subprocess
 from espeak import espeak
 
 # Global variables
@@ -77,13 +78,11 @@ def get_all_chapters():
         for file_name in files:
             if file_name.endswith((".txt")):
                 chapters.append(file_name[:-4])
-                
+
     return chapters
 
 
 def read_chapter(irc, chapter, msgto):
-    print 'A new child ',  os.getpid()
-
     path = '.'
     chapter += '.txt'
 
@@ -94,7 +93,19 @@ def read_chapter(irc, chapter, msgto):
                     for lines in file(situated_at + '/' + chapter):
                         irc.send('PRIVMSG ' + str(msgto) + ' :' + str(lines) + '\r\n')
                     irc.send('PRIVMSG ' + str(msgto) + ' :==== End ===== \r\n')
-    os._exit(0)
+
+
+def speak_chapter(chapter):
+    path = '.'
+    chapter += '.txt'
+
+    for situated_at, dirs, files in os.walk(path):
+        for file_name in files:
+            if file_name.endswith(('.txt')):
+                if file_name == chapter:
+                    for lines in file(situated_at + '/' + chapter):
+                        print lines
+                        subprocess.call('espeak "' + str(lines) + '"', shell=True)
 
 
 def menu():
@@ -159,22 +170,31 @@ def ai(data, bot, irc):
 
                 if chapter in chapters:
                     irc.send('PRIVMSG ' + str(msgto) + ' :Ok, Lets start with ' + str(chapter) + '\r\n')
-                    newpid = os.fork()
-                    if newpid:
-                        print newpid
-                        children.append(newpid)
-                        read_chapter(irc, chapter, msgto)
 
-                    for i, child in enumerate(children):
-                        os.waitpid(child, 0)
+                    # Multiprocessing goes here .
+                    read_chapter(irc, chapter, msgto)
 
                 else:
-                    irc.send('PRIVMSG ' + str(msgto) + ' :Sorry you are searching for a wrong chapter, start again. \r\n')             
+                    irc.send('PRIVMSG ' + str(msgto) + ' :Sorry you are searching for a wrong chapter, start again. \r\n')
 
-    
+
     # Code for speaker bot starts here. 
     else:
+        running = True
         print 'What would you like to learn ? '
         modules = list_modules()
         print modules
-        choice = raw_input('>')
+        module = raw_input('>')
+
+        if module in MODULES:
+            print "In this module we have the following chapters :\n"
+            for e in get_chapters(module):
+                print " " + e
+            chapter = raw_input('Enter the chapters name : ')
+            if chapter:
+                while running:
+                    speak_chapter(chapter)
+                    running = False
+
+
+

@@ -37,9 +37,13 @@ class Bot():
 
 
     def __str__(self):
-        return """Connecting %s to %s:%s. \n\nWith these Details : \n\n Nick: %s \n Ident: %s
+        if self.bot_type == 'Teacher':
+            return """Connecting %s to %s:%s. \n\nWith these Details : \n\n Nick: %s \n Ident: %s
  Realname : %s \n Channel : %s \n""" % (self.bot, self.server, self.port,
                                     self.nick, self.ident, self.realname, self.channel)
+        elif self.bot_type == 'Speaker':
+            return 'Starting %s - %s \n' % (self.bot, self.nick)
+
 
     def main(self):
         self.run()
