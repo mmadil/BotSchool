@@ -6,6 +6,7 @@ import os
 import re
 import time
 import subprocess
+import thread
 
 # Global variables
 
@@ -90,7 +91,10 @@ def read_chapter(irc, chapter, msgto):
             if file_name.endswith(('.txt')):
                 if file_name == chapter:
                     for lines in file(situated_at + '/' + chapter):
-                        irc.send('PRIVMSG ' + str(msgto) + ' :' + str(lines) + '\r\n')
+                        if lines != '\n':
+                            irc.send('PRIVMSG ' + str(msgto) + ' :' + str(lines) + '\r\n')
+                        else:
+                            pass
                     irc.send('PRIVMSG ' + str(msgto) + ' :==== End ===== \r\n')
 
 
@@ -164,9 +168,8 @@ def ai(data, bot, irc):
 
                 if chapter in chapters:
                     irc.send('PRIVMSG ' + str(msgto) + ' :Ok, Lets start with ' + str(chapter) + '\r\n')
-
-                    # Multiprocessing goes here .
-                    read_chapter(irc, chapter, msgto)
+                    print "Starting New Thread"
+                    thread.start_new_thread(read_chapter, (irc, chapter, msgto))
 
                 else:
                     irc.send('PRIVMSG ' + str(msgto) + ' :Sorry you are searching for a wrong chapter, start again. \r\n')
