@@ -43,7 +43,6 @@ simple python program. Here too users can talk to the bot using few
 simple commands and the bot replies with further instructions. At the
 end the bot will start teaching the specified chapter verbally.
 
-------------------------------
 
 ## There is something about this code
 
@@ -79,7 +78,9 @@ Might add this later :
 ## Call for help 
 
 This project needs help of those people who would like to help me
-building a more comprehensive handbook. If you would like to add
-anything to the handbook please collaborate.
+building a more comprehensive handbook. 
+
+If you would like to add anything to the handbook please collaborate.
+
 Do so by forking this repository and when you are done just
 make a pull request. 
