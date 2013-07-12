@@ -1,44 +1,85 @@
-Learn to code 
+Bot School
 ====================
 
-Coders Initiative.
+## What is Bot School ?
 
-Now coding is all fun with Bot School.
+Bot School is one of my projects which uses [IRC][1] and [ESpeak][2] in
+order to teach users anything. These may include programming languages,
+any academic related stuff or possibly anything.
 
-With it you can learn from the best documents all complied in a single
-handbook.
+If you have guessed it right it is a virtual school. This school is run
+by bots. Yes, Bots!
 
-**This handbook will be published as soon as I am done with my bots.**
+## Bots
+
+Bots play a very important role in this school.
+ 
+In my version bots will teach you how to code from various programming
+languages. 
+(Provided I along with other collaborators publish the handbook in
+time.)
+
+Other version that I can think of is where teachers / lecturers compile
+some notes in a handbook and this bot will teach you verbally.
+
+Bots here are of two types :
+
+1. Teacher bot
+2. Speaker
+
+These bots can be used in the following ways :
+
+## Teacher bot - IRC Mode
+
+In IRC mode bots are made to connect to an IRC server and join a
+channel. With a few commands, users can talk to the bot and the bots
+will reply with further instructions. At the end the bot will start
+teaching with a specified chapter by the user.
+
+## Speaker bot - Local Mode
+
+In local mode bots do not join any IRC server, instead they run as a
+simple python program. Here too users can talk to the bot using few
+simple commands and the bot replies with further instructions. At the
+end the bot will start teaching the specified chapter verbally.
+
+------------------------------
+
+## There is something about this code
+
+**Speaker bot works perfectly well in Linux, Not tested on Windows OS
+yet.**
+
+## Dependencies 
+
+1. [Python 2.7+](http://python.org/)
+2. [ESpeak](http://espeak.sourceforge.net/)
 
 
-Technologies used
-====================
+[1]: https://en.wikipedia.org/wiki/Irc
+[2]: https://en.wikipedia.org/wiki/ESpeak
+
+## Technologies used
 
 + Raspberry Pi (as server)
 + IRCd (using UnrealIRCd)
 + Anope Services
 + python-espeak
 
-
-Might add these later :
+Might add this later :
 
 + ZNC (IRC Bouncer)
 
 
-Bots
-====================
+## Future of Bot School 
 
-Bots manage most of the IRC activities themselves.
-Different types of bots help us achieve the desired results.
++ Adding GUI to it.
++ Publish it as a more enhanced software.
 
-Bots are of the follwing types :
+## Call for help 
 
-+ Teacher - Manages the channel operations with some commands and reads the user documents provided in the handbook.
-+ Speaker - This bot does not join an IRC, but teaches locally with text-to-speach translation.
-
-Coming up next !
-====================
-
-+ A more comprehensive handbook.
-+ Create a real IRC server and run Bot School on it.
-
+This project needs help of those people who would like to help me
+building a more comprehensive handbook. If you would like to add
+anything to the handbook please collaborate.
+Do so by forking this repository and when you are done just
+make a pull request. 
