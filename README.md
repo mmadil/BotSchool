@@ -29,14 +29,14 @@ Bots here are of two types :
 
 These bots can be used in the following ways :
 
-## Teacher bot - IRC Mode
+**Teacher bot - IRC Mode**
 
 In IRC mode bots are made to connect to an IRC server and join a
 channel. With a few commands, users can talk to the bot and the bots
 will reply with further instructions. At the end the bot will start
 teaching with a specified chapter by the user.
 
-## Speaker bot - Local Mode
+**Speaker bot - Local Mode**
 
 In local mode bots do not join any IRC server, instead they run as a
 simple python program. Here too users can talk to the bot using few
@@ -58,17 +58,11 @@ yet.**
 [1]: https://en.wikipedia.org/wiki/Irc
 [2]: https://en.wikipedia.org/wiki/ESpeak
 
-## Technologies used
+## Technologies used while developing
 
 + Raspberry Pi (as server)
 + IRCd (using UnrealIRCd)
 + Anope Services
-+ python-espeak
-
-Might add this later :
-
-+ ZNC (IRC Bouncer)
-
 
 ## Future of Bot School 
 
@@ -79,8 +73,6 @@ Might add this later :
 
 This project needs help of those people who would like to help me
 building a more comprehensive handbook. 
-
 If you would like to add anything to the handbook please collaborate.
-
 Do so by forking this repository and when you are done just
 make a pull request. 
