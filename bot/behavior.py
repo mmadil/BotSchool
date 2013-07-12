@@ -4,6 +4,7 @@ from settings import BOTS, MODULES
 
 import os
 import re
+import sys
 import time
 import subprocess
 import thread
@@ -106,7 +107,10 @@ def speak_chapter(chapter):
         for file_name in files:
             if file_name.endswith(('.txt')):
                 if file_name == chapter:
-                    subprocess.call('espeak -p 75 -f ' + situated_at + '/' + chapter + '', shell=True)
+                    if sys.platform == 'linux' or sys.platform == 'linux2':
+                        subprocess.call('espeak -p 75 -f ' + situated_at + '/' + chapter + '', shell=True)
+                    else:
+                        subprocess.call('espeak -p 78 -f ' + situated_at + '/' + chapter + '', shell=True)
 
 
 
@@ -192,6 +196,7 @@ def ai(data, bot, irc):
                 while running:
                     speak_chapter(chapter)
                     running = False
+
             else:
                 print "Please provide a chapters name"
 
