@@ -60,6 +60,7 @@ yet.**
 
 ## Settings 
 
+**Please read settings.py for more information**
 
 ## Technologies used while developing
 
