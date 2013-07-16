@@ -8,6 +8,9 @@ import sys
 # Helper Functions and Global Variables
 
 def getlist():
+    ''' This function gets the list of every bot
+    present in settings.py
+    '''
     string = ''
 
     if len(BOTS) == 1:
@@ -24,7 +27,9 @@ def getlist():
 
 
 class Initializer():
-    # This class loads the bot and initiates it.
+    ''' This class is responsible for managing the
+    bot and running the program.
+    '''
     def __init__(self, arg):
         self.arg = arg[1:]
 

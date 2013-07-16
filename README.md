@@ -58,6 +58,9 @@ yet.**
 [1]: https://en.wikipedia.org/wiki/Irc
 [2]: https://en.wikipedia.org/wiki/ESpeak
 
+## Settings 
+
+
 ## Technologies used while developing
 
 + Raspberry Pi (as server)

@@ -15,6 +15,8 @@ running = True
 # Helper functions
 
 def get_bot_details(bot):
+    '''
+    '''
     if bot in settings.BOTS.keys():
         bot_config = settings.BOTS.values()[settings.BOTS.keys().index(bot)]
         return bot_config
