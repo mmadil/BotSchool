@@ -15,7 +15,8 @@ running = True
 # Helper functions
 
 def get_bot_details(bot):
-    '''
+    ''' This function gets the details of a bot
+    from settings.py
     '''
     if bot in settings.BOTS.keys():
         bot_config = settings.BOTS.values()[settings.BOTS.keys().index(bot)]
@@ -52,6 +53,15 @@ class Bot():
 
 
     def run(self):
+            ''' This method checks whether a bot is Teacher type 
+            or Speaker type. If the bot is Teacher type, then the
+            bot is made to connect the provided IRC server
+            and then its AI capabilities is used using the 
+            ai function.
+
+            If the bot is Speaker type, then its AI capabilities
+            is straight away called using the ai function.
+            '''
             if self.bot_type == 'Teacher':
                 while running:
                     self.ping_time = int(time.time())

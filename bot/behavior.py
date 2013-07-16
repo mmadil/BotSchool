@@ -17,6 +17,9 @@ some_channel = ''
 # Helper functions
 
 def regexify(data):
+    ''' This function is used to extract the information
+    from the data recieved when connected to an IRC server.
+    '''
     matchObj = re.match(regex, data, re.M|re.I)
     if matchObj:
         return matchObj.group(), matchObj.group(1), matchObj.group(2),\
@@ -28,11 +31,16 @@ def regexify(data):
 
 
 def get_nick(string):
+    ''' This function is used to extract nick name
+    '''
     return string[0:string.index('!')]
 
 
 
 def list_modules():
+    ''' This function is used to list every module
+    that has been listed in settings.py
+    '''
     string = ' '
 
     if len(MODULES) == 1:
@@ -46,15 +54,24 @@ def list_modules():
 
 
 def capture_information(string):
+    ''' This function is used to extract the command
+    that has been provided to a bot.
+    '''
     return string[string.index('!') + 6:][:-1]
 
 
 def capture_chapter(string):
+    ''' This function is use to extract the chapters
+    name that has been provided by the user.
+    '''
     return string[string.index('!') + 9:][:-1]
 
 
 
 def get_chapters(module):
+    ''' This function is returns every chapter that
+    is present in a module.
+    '''
     path = '.'
     chapters = []
     for situated_at, dirs, files in os.walk(path):
@@ -71,7 +88,11 @@ def get_chapters(module):
 
     return chapters
 
+
+
 def get_all_chapters():
+    ''' This function returns every chapter
+    '''
     path = '.'
     chapters = []
 
@@ -83,7 +104,15 @@ def get_all_chapters():
     return chapters
 
 
+
 def read_chapter(irc, chapter, msgto):
+    ''' This function reads the chapter from
+    the provided handbook and sends a private
+    message to its caller with the contents of
+    that chapter.
+
+    Used by Teacher type bots.
+    '''
     path = '.'
     chapter += '.txt'
 
@@ -99,7 +128,13 @@ def read_chapter(irc, chapter, msgto):
                     irc.send('PRIVMSG ' + str(msgto) + ' :==== End ===== \r\n')
 
 
+
 def speak_chapter(chapter):
+    ''' This function uses ESpeak to read the
+    chapters with text to speech translation.
+
+    Used by Speaker type bots.
+    '''
     path = '.'
     chapter += '.txt'
 
@@ -117,6 +152,13 @@ def speak_chapter(chapter):
 # AI Functions
 
 def ai(data, bot, irc):
+    '''
+    This function is responsible for a bots AI 
+    capabilities. It works differntly for 
+    Speaker type bots and Teacher type bots.
+
+    '''
+
     bot_type, nick, ident, password, channel, realname, hostname = bot
 
     if bot_type == 'Teacher':
