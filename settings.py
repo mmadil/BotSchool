@@ -59,7 +59,7 @@ BOTS = {
 # You can add them here.
 
 # Make sure that the name of a module is same
-# as the its directory name
+# as its directory name
 
 MODULES = (
     'irc',

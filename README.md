@@ -7,7 +7,7 @@ Bot School is one of my projects which uses [IRC][1] and [ESpeak][2] in
 order to teach users anything. These may include programming languages,
 any academic related stuff or possibly anything.
 
-If you have guessed it right it is a virtual school. This school is run
+If you are guessing who runs this school? This school is run
 by bots. Yes, Bots!
 
 ## Bots
